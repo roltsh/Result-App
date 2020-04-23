@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#462481">
+
+
+    <TextView
+        android:id="@+id/contactlabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="50dp"
+        android:text="CONTACT US"
+        android:textColor="#FAF8F8"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contactlabel"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="55dp"
+        android:text="+91-80-26622130-35"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/addresslabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/num"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="66dp"
+        android:text="Address :"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp" />
+
+    <ImageView
+        android:id="@+id/navico"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@id/addresslabel"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="-11dp"
+        app:srcCompat="@drawable/ic_location_on_blue"
+        tools:ignore="VectorDrawableCompat" />
+
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/addresslabel"
+        android:layout_marginLeft="100dp"
+        android:text="P.O.Box No:- 1908, Bull Temple Road,                         Bangalore - 560019             Karnataka,India"
+        android:textColor="#FAF7F7"
+        android:textSize="25sp" />
+
+    <ImageView
+        android:id="@+id/faxico"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/navico"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="161dp"
+        app:srcCompat="@drawable/ic_local_phone_blue"
+        tools:ignore="VectorDrawableCompat" />
+
+    <TextView
+        android:id="@+id/faxlabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/addresslabel"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="172dp"
+        android:text="Fax  :"
+        android:textColor="#FAF7F7"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/faxnum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/address"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="49dp"
+        android:layout_toRightOf="@id/faxlabel"
+        android:text="+91-80-26614357"
+        android:textColor="#FAF7F7"
+        android:textSize="25sp" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/navico"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="285dp"
+        app:srcCompat="@drawable/ic_email_black_24dp"
+        tools:ignore="VectorDrawableCompat" />
+
+    <TextView
+        android:id="@+id/emaillabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/addresslabel"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="297dp"
+        android:text="Email  :"
+        android:textColor="#FAF7F7"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/collmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/address"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="175dp"
+        android:layout_toRightOf="@id/emaillabel"
+        android:text="info@bmsce.ac.in"
+        android:textColor="#FAF7F7"
+        android:textSize="25sp" />
+
+</RelativeLayout>
