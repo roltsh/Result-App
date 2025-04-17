@@ -26,39 +26,41 @@ public class LoggerConfig {
     }
 
     public List<LogPlatform> getPlatformsForLevel(LogLevel level) {
-        List<LogPlatform> platforms = new ArrayList<>();
-        
-        // Add platforms for the specified level and all lower levels
-        // following the hierarchy: ERROR <- WARNING <- INFO <- DEBUG
-        for (Map.Entry<LogLevel, List<LogPlatform>> entry : config.entrySet()) {
-            if (level.isLoggable(entry.getKey())) {
-                platforms.addAll(entry.getValue());
-            }
+        return config.getOrDefault(level, Collections.emptyList());
+    }
+
+    public void loadFromConfigFile(String filePath) throws IOException {
+        Properties props = new Properties();
+        try (FileReader reader = new FileReader(filePath)) {
+            props.load(reader);
         }
-        
-        return platforms;
+
+        String levelStr = props.getProperty("log.level", "INFO").toUpperCase();
+        setLevel(LogLevel.valueOf(levelStr));
+
+        loadPlatformsFromConfig(props);
     }
 
-public void loadPlatformsFromConfig(Properties props) throws IOException {
-    String consoleLevelStr = props.getProperty("log.platform.console");
-    String fileLevelStr = props.getProperty("log.platform.file");
-    String networkLevelStr = props.getProperty("log.platform.network");
+    public void loadPlatformsFromConfig(Properties props) throws IOException {
+        String consoleLevelStr = props.getProperty("log.platform.console");
+        String fileLevelStr = props.getProperty("log.platform.file");
+        String networkLevelStr = props.getProperty("log.platform.network");
 
-    LogPlatform console = new ConsolePlatform();
-    LogPlatform file = new FilePlatform(props.getProperty("log.file.path", "logs.txt"));
-    LogPlatform network = new NetworkPlatform();
+        LogPlatform console = new ConsolePlatform();
+        LogPlatform file = new FilePlatform(props.getProperty("log.file.path", "logs.txt"));
+        LogPlatform network = new NetworkPlatform();
 
-    if (consoleLevelStr != null) {
-        LogLevel lvl = LogLevel.valueOf(consoleLevelStr.toUpperCase());
-        addPlatform(lvl, console);
+        if (consoleLevelStr != null) {
+            LogLevel lvl = LogLevel.valueOf(consoleLevelStr.toUpperCase());
+            addPlatform(lvl, console);
+        }
+        if (fileLevelStr != null) {
+            LogLevel lvl = LogLevel.valueOf(fileLevelStr.toUpperCase());
+            addPlatform(lvl, file);
+        }
+        if (networkLevelStr != null) {
+            LogLevel lvl = LogLevel.valueOf(networkLevelStr.toUpperCase());
+            addPlatform(lvl, network);
+        }
     }
-    if (fileLevelStr != null) {
-        LogLevel lvl = LogLevel.valueOf(fileLevelStr.toUpperCase());
-        addPlatform(lvl, file);
-    }
-    if (networkLevelStr != null) {
-        LogLevel lvl = LogLevel.valueOf(networkLevelStr.toUpperCase());
-        addPlatform(lvl, network);
-    }
-}
 }
