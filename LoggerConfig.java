@@ -17,7 +17,10 @@ public class LoggerConfig {
     }
 
     public void addPlatform(LogLevel level, LogPlatform platform) {
-        config.computeIfAbsent(level, k -> new ArrayList<>()).add(platform);
+        config.computeIfAbsent(level, k -> new ArrayList<>());
+        if (!config.get(level).contains(platform)) {
+            config.get(level).add(platform);
+        }
     }
 
     public void removePlatform(LogLevel level, LogPlatform platform) {
@@ -52,15 +55,23 @@ public class LoggerConfig {
 
         if (consoleLevelStr != null) {
             LogLevel lvl = LogLevel.valueOf(consoleLevelStr.toUpperCase());
-            addPlatform(lvl, console);
+            attachPlatformToLevels(console, lvl);
         }
         if (fileLevelStr != null) {
             LogLevel lvl = LogLevel.valueOf(fileLevelStr.toUpperCase());
-            addPlatform(lvl, file);
+            attachPlatformToLevels(file, lvl);
         }
         if (networkLevelStr != null) {
             LogLevel lvl = LogLevel.valueOf(networkLevelStr.toUpperCase());
-            addPlatform(lvl, network);
+            attachPlatformToLevels(network, lvl);
+        }
+    }
+
+    private void attachPlatformToLevels(LogPlatform platform, LogLevel minLevel) {
+        for (LogLevel l : LogLevel.values()) {
+            if (l.getSeverity() >= minLevel.getSeverity()) {
+                addPlatform(l, platform);
+            }
         }
     }
 }
