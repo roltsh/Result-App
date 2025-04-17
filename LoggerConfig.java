@@ -28,6 +28,12 @@ public class LoggerConfig {
         if (list != null) list.remove(platform);
     }
 
+    public void detachPlatformFromAllLevels(LogPlatform platform) {
+        for (LogLevel level : LogLevel.values()) {
+            removePlatform(level, platform);
+        }
+    }
+
     public List<LogPlatform> getPlatformsForLevel(LogLevel level) {
         return config.getOrDefault(level, Collections.emptyList());
     }
