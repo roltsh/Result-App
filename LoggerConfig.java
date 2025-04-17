@@ -39,13 +39,26 @@ public class LoggerConfig {
         return platforms;
     }
 
-    public void loadFromConfigFile(String filePath) throws IOException {
-        Properties props = new Properties();
-        try (FileReader reader = new FileReader(filePath)) {
-            props.load(reader);
-        }
+public void loadPlatformsFromConfig(Properties props) throws IOException {
+    String consoleLevelStr = props.getProperty("log.platform.console");
+    String fileLevelStr = props.getProperty("log.platform.file");
+    String networkLevelStr = props.getProperty("log.platform.network");
 
-        String levelStr = props.getProperty("log.level", "INFO").toUpperCase();
-        setLevel(LogLevel.valueOf(levelStr));
+    LogPlatform console = new ConsolePlatform();
+    LogPlatform file = new FilePlatform(props.getProperty("log.file.path", "logs.txt"));
+    LogPlatform network = new NetworkPlatform();
+
+    if (consoleLevelStr != null) {
+        LogLevel lvl = LogLevel.valueOf(consoleLevelStr.toUpperCase());
+        addPlatform(lvl, console);
     }
+    if (fileLevelStr != null) {
+        LogLevel lvl = LogLevel.valueOf(fileLevelStr.toUpperCase());
+        addPlatform(lvl, file);
+    }
+    if (networkLevelStr != null) {
+        LogLevel lvl = LogLevel.valueOf(networkLevelStr.toUpperCase());
+        addPlatform(lvl, network);
+    }
+}
 }
